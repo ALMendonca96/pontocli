@@ -61,8 +61,8 @@ func main() {
 		},
 	}
 
-	var registerCmd = &cobra.Command{
-		Use:   "register",
+	var addCmd = &cobra.Command{
+		Use:   "add",
 		Short: "Register a date and hour(s)",
 		Run: func(cmd *cobra.Command, args []string) {
 			logger := enableLogging(cmd)
@@ -76,7 +76,7 @@ func main() {
 				dateArg = time.Now().Format("2006-01-02")
 			}
 
-			logger.Println("Setting up hours...")
+			logger.Printf("Setting up hours [%s]...\n", hourArg)
 			if len(hourArg) == 0 {
 				hourArg = append(hourArg, time.Now().Format("15:04"))
 			}
@@ -169,18 +169,18 @@ func main() {
 		},
 	}
 
-	registerCmd.Flags().String("date", "", "Specify the date in the format 'YYYY-MM-DD'")
-	registerCmd.Flags().StringSliceP("hour", "", []string{}, "Specify the time in the format 'HH:mm'")
-	registerCmd.Flags().Bool("log", false, "Enable logging")
+	addCmd.Flags().String("date", "", "Specify the date in the format 'YYYY-MM-DD' or omit for the current date")
+	addCmd.Flags().StringSliceP("hour", "", []string{}, "Specify the time in the format 'HH:mm' or omit for the current time")
+	addCmd.Flags().Bool("log", false, "Enable logging")
 
-	viewCmd.Flags().String("date", "", "Specify the date in the format 'YYYY-MM-DD'")
+	viewCmd.Flags().String("date", "", "Specify the date in the format 'YYYY-MM-DD' or omit for the current date")
 	viewCmd.Flags().Bool("log", false, "Enable logging")
 
-	deleteCmd.Flags().String("date", "", "Specify the date in the format 'YYYY-MM-DD'")
-	deleteCmd.Flags().StringSliceP("hour", "", []string{}, "Specify the time in the format 'HH:mm'")
+	deleteCmd.Flags().String("date", "", "Specify the date in the format 'YYYY-MM-DD' or omit for the current date")
+	deleteCmd.Flags().StringSliceP("hour", "", []string{}, "Specify the time in the format 'HH:mm' or omit for the current time")
 	deleteCmd.Flags().Bool("log", false, "Enable logging")
 
-	rootCmd.AddCommand(registerCmd)
+	rootCmd.AddCommand(addCmd)
 	rootCmd.AddCommand(viewCmd)
 	rootCmd.AddCommand(deleteCmd)
 
