@@ -12,7 +12,7 @@ Pontocli is a command-line interface (CLI) application for tracking work hours. 
 
 ### Prerequisites
 
-- Go programming language (version X.X.X)
+- Go programming language (version 1.21.1)
 - Git
 
 ### Installation Steps
