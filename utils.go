@@ -34,6 +34,6 @@ func FormatHours(hours []time.Time) string {
 }
 
 func PrintWorkHours(date time.Time, hours string) {
-	fmt.Printf("Work hours for date %s:\n", date.Format("02-01-2006"))
+	fmt.Printf("Work hours for date %s:\n", date.Format("2006-01-02"))
 	fmt.Println(hours)
 }
