@@ -4,7 +4,7 @@ Pontocli is a command-line interface (CLI) application for tracking work hours. 
 
 ## Features
 
-- **Add Work Hours**: Record the hours you worked on specific dates, including entry, lunch break, return from lunch, and exit times.
+- **Add Work Hours**: Record the hours you worked on specific dates.
 - **View Work Hours**: Display the recorded work hours for a given date.
 - **Delete Work Hours**: Remove specific hours from a recorded workday.
 
