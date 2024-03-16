@@ -70,7 +70,7 @@ Replace YYYY-MM-DD, HH:MM, etc., with the appropriate date and time values.
 To view the recorded work hours for a date, use the view command:
 
 ```bash
-pontocli view --date YYYY-MM-DD
+pontocli view --date=YYYY-MM-DD
 ```
 
 Replace YYYY-MM-DD with the date for which you want to view the work hours.
@@ -80,7 +80,7 @@ Replace YYYY-MM-DD with the date for which you want to view the work hours.
 To delete specific work hours for a date, use the delete command:
 
 ```bash
-pontocli delete --date YYYY-MM-DD --hours HH:MM HH:MM
+pontocli delete --date=YYYY-MM-DD --hour=HH:MM,HH:MM
 ```
 
 Replace YYYY-MM-DD, HH:MM, etc., with the appropriate date and time values.
