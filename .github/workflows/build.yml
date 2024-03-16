@@ -1,0 +1,35 @@
+name: Build Go Project
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '1.21'
+
+      - name: Build project
+        run: go build -o pontocli${{ matrix.os == 'windows-latest' && '.exe' || '' }} .
+
+      - name: Commit compiled executable
+        run: |
+          git config user.email "github-actions@github.com"
+          git config user.name "GitHub Actions"
+          git add pontocli${{ matrix.os == 'windows-latest' && '.exe' || '' }}
+          git commit -m "Add compiled executable"
+          git push
