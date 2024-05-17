@@ -180,6 +180,7 @@ func main() {
 	deleteCmd.Flags().StringSliceP("hour", "", []string{}, "Specify the time in the format 'HH:mm' or omit for the current time")
 	deleteCmd.Flags().Bool("log", false, "Enable logging")
 
+	rootCmd.CompletionOptions.DisableDefaultCmd = true
 	rootCmd.AddCommand(addCmd)
 	rootCmd.AddCommand(viewCmd)
 	rootCmd.AddCommand(deleteCmd)
