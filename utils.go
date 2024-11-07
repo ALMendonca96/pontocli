@@ -37,3 +37,19 @@ func PrintWorkHours(date time.Time, hours string) {
 	fmt.Printf("Work hours for date %s:\n", date.Format("2006-01-02"))
 	fmt.Println(hours)
 }
+
+func ResolveDate(dateArg string) string {
+	if dateArg == "" {
+		return time.Now().Format("2006-01-02")
+	}
+
+	if dateArg == "today" {
+		return time.Now().Format("2006-01-02")
+	}
+
+	if dateArg == "yesterday" {
+		return time.Now().AddDate(0, 0, -1).Format("2006-01-02")
+	}
+
+	return ""
+}

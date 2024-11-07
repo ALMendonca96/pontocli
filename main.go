@@ -39,9 +39,7 @@ func main() {
 			dateArg, _ := cmd.Flags().GetString("date")
 
 			logger.Println("Setting up date...")
-			if dateArg == "" {
-				dateArg = time.Now().Format("2006-01-02")
-			}
+			dateArg = ResolveDate(dateArg)
 
 			logger.Println("Validating date...")
 			date, err := time.Parse("2006-01-02", dateArg)
@@ -72,9 +70,7 @@ func main() {
 			hourArg, _ := cmd.Flags().GetStringSlice("hour")
 
 			logger.Println("Setting up date...")
-			if dateArg == "" {
-				dateArg = time.Now().Format("2006-01-02")
-			}
+			dateArg = ResolveDate(dateArg)
 
 			logger.Printf("Setting up hours [%s]...\n", hourArg)
 			if len(hourArg) == 0 {
@@ -126,9 +122,7 @@ func main() {
 			hourArg, _ := cmd.Flags().GetStringSlice("hour")
 
 			logger.Println("Setting up date...")
-			if dateArg == "" {
-				dateArg = time.Now().Format("2006-01-02")
-			}
+			dateArg = ResolveDate(dateArg)
 
 			logger.Println("Setting up hour...")
 			if len(hourArg) == 0 {
