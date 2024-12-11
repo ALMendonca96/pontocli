@@ -38,8 +38,16 @@ func main() {
 
 			dateArg, _ := cmd.Flags().GetString("date")
 
+			lastLoggedDate, err := GetLastLoggedDate(logger)
+			if err != nil {
+				logger.Println("Erro:", err)
+				return
+			}
+
 			logger.Println("Setting up date...")
-			dateArg = ResolveDate(dateArg)
+			dateArg = ResolveDate(dateArg, lastLoggedDate)
+
+			cmd.Printf(dateArg)
 
 			logger.Println("Validating date...")
 			date, err := time.Parse("2006-01-02", dateArg)
@@ -70,7 +78,7 @@ func main() {
 			hourArg, _ := cmd.Flags().GetStringSlice("hour")
 
 			logger.Println("Setting up date...")
-			dateArg = ResolveDate(dateArg)
+			dateArg = ResolveDate(dateArg, time.Time{})
 
 			logger.Printf("Setting up hours [%s]...\n", hourArg)
 			if len(hourArg) == 0 {
@@ -121,8 +129,14 @@ func main() {
 			dateArg, _ := cmd.Flags().GetString("date")
 			hourArg, _ := cmd.Flags().GetStringSlice("hour")
 
+			lastLoggedDate, err := GetLastLoggedDate(logger)
+			if err != nil {
+				logger.Println("Erro:", err)
+				return
+			}
+
 			logger.Println("Setting up date...")
-			dateArg = ResolveDate(dateArg)
+			dateArg = ResolveDate(dateArg, lastLoggedDate)
 
 			logger.Println("Setting up hour...")
 			if len(hourArg) == 0 {

@@ -59,6 +59,62 @@ func GetHours(logger *log.Logger, date time.Time) (string, error) {
 	return formattedHours, nil
 }
 
+func GetLastLoggedDate(logger *log.Logger) (time.Time, error) {
+	logger.Println("Getting last logged date...")
+
+	// Inicializa o banco de dados
+	db, err := InitDB(logger)
+	if err != nil {
+		return time.Time{}, err // Retorna time zero e o erro
+	}
+	defer db.Close()
+
+	var lastLoggedDate time.Time
+
+	// Usando transação de leitura para acessar dados no bucket "logins" (ajuste conforme seu banco)
+	err = db.View(func(tx *bolt.Tx) error {
+		logger.Println("Retrieving bucket 'logins'...")
+
+		bucket := tx.Bucket([]byte("pontocli"))
+		if bucket == nil {
+			return fmt.Errorf("bucket 'pontocli' not found")
+		}
+
+		// Buscando a última data de login. O exemplo assume que as chaves são as datas (formato YYYY-MM-DD)
+		logger.Println("Retrieving last login data...")
+
+		var maxDate time.Time
+		bucket.ForEach(func(k, v []byte) error {
+			// Cada chave (k) é uma data de login, e o valor (v) é o objeto de login (pode ser um JSON com detalhes)
+			date, err := time.Parse("2006-01-02", string(k)) // Assuming the date is stored in "YYYY-MM-DD"
+			if err != nil {
+				return err
+			}
+
+			// Compara a data para encontrar a mais recente
+			if date.After(maxDate) {
+				maxDate = date
+			}
+
+			return nil
+		})
+
+		if maxDate.IsZero() {
+			return fmt.Errorf("no date found")
+		}
+
+		lastLoggedDate = maxDate
+		return nil
+	})
+
+	if err != nil {
+		return time.Time{}, err
+	}
+
+	logger.Printf("Last login date: %s\n", lastLoggedDate.Format("2006-01-02"))
+	return lastLoggedDate, nil
+}
+
 func SaveHours(logger *log.Logger, date time.Time, hours []time.Time) error {
 	db, err := InitDB(logger)
 	if err != nil {

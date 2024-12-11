@@ -48,19 +48,26 @@ Pontocli is a command-line interface (CLI) application for tracking work hours. 
 To add work hours for a specific date, use the `add` command:
 
 ```bash
-pontocli add --date YYYY-MM-DD --hour=HH:mm
+pontocli add --date=YYYY-MM-DD --hour=HH:mm
 ```
 
-To add more than one work hour, the hour parameter followed by ,
+To add more than one work hour, use the hour parameter followed by a comma:
 
 ```bash
-pontocli add --date YYYY-MM-DD --hour=HH:mm,HH:mm
+pontocli add --date=YYYY-MM-DD --hour=HH:mm,HH:mm
 ```
 
-To add the current date and hour, just omit the date and hour parameters
+To add the current date and hour, just omit the date and hour parameters:
 
 ```bash
 pontocli add
+```
+
+Additional date options:
+
+```bash
+# Add work hours for yesterday
+pontocli add --date=yesterday --hour=HH:mm
 ```
 
 Replace YYYY-MM-DD, HH:MM, etc., with the appropriate date and time values.
@@ -70,17 +77,29 @@ Replace YYYY-MM-DD, HH:MM, etc., with the appropriate date and time values.
 To view the recorded work hours for a date, use the view command:
 
 ```bash
+# View work hours for a specific date
 pontocli view --date=YYYY-MM-DD
-```
 
-Replace YYYY-MM-DD with the date for which you want to view the work hours.
+# View work hours for yesterday
+pontocli view --date=yesterday
+
+# View work hours for the last recorded date
+pontocli view --date=last
+```
 
 ### Deleting Work Hours
 
 To delete specific work hours for a date, use the delete command:
 
 ```bash
+# Delete work hours for a specific date
 pontocli delete --date=YYYY-MM-DD --hour=HH:MM,HH:MM
+
+# Delete work hours for yesterday
+pontocli delete --date=yesterday --hour=HH:MM,HH:MM
+
+# Delete work hours for the last recorded date
+pontocli delete --date=last --hour=HH:MM,HH:MM
 ```
 
 Replace YYYY-MM-DD, HH:MM, etc., with the appropriate date and time values.
@@ -99,7 +118,3 @@ Create a new pull request
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
-
-```
-
-```
