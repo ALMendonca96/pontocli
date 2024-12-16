@@ -55,5 +55,18 @@ func ResolveDate(dateArg string, lastLoggedDate time.Time) string {
 		return lastLoggedDate.Format("2006-01-02")
 	}
 
-	return ""
+	parsedDate, err := time.Parse("2006-01-02", dateArg)
+	if err != nil {
+		return ""
+	}
+
+	if parsedDate.IsZero() {
+		return ""
+	}
+
+	if parsedDate.After(time.Now()) {
+		return ""
+	}
+
+	return parsedDate.Format("2006-01-02")
 }
